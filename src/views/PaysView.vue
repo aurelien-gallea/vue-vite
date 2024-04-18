@@ -1,23 +1,13 @@
 <template>
-    
-        <h1> Pays : {{ villes }}</h1>
+	<h1>Pays : {{ villes }}</h1>
 
-    <VilleComponent v-for="(ville, index) in villes" v-model:ville="villes[index]"/>
+	<VilleComponent v-for="(ville, index) in villes" v-model:ville="villes[index]" />
 </template>
-<script>
-import VilleComponent from '../components/VilleComponent.vue';
+<script setup>
+import VilleComponent from "../components/VilleComponent.vue";
+import { reactive } from "vue";
 
-export default {
-    components: {
-        VilleComponent
-    },
-    data() {
-        return {
-            villes: ['Marseille', 'Lyon', 'Paris']
-        }
-    },
-}
+const villes = reactive(["Marseille", "Lyon", "Paris"]);
+
 </script>
-<style lang="">
-    
-</style>
+<style></style>

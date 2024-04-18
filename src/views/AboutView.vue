@@ -1,46 +1,39 @@
 <template>
-    {{ pays }}
-    <HelloWorld ville="Marseille" @sendData="afficherPays" ref="enfant" />
-    <HelloWorld>John</HelloWorld>
-    <HelloWorld v-for="ville in villes" :ville />
-    <router-link :to="{name: 'adresse', query: { rue: 'avenue du prado', cp: '13005', ville: 'Marseille'}}">
-        cliquer pour visiter Marseille
-    </router-link>
-    <button @click="goToPersonne">
-        Détails de Sophie
-    </button>
+  {{ pays }}
+  <HelloWorld ville="Marseille" @sendData="afficherPays" ref="enfant"/>
+  <HelloWorld>John</HelloWorld>
+  <HelloWorld v-for="ville in villes" :ville/>
+  <router-link :to="{ name: 'adresse', query: { rue: 'paradis', ville: 'Marseille', cp: '13006' } }">
+    Cliquer pour visiter Marseille
+  </router-link>
+  <button @click="goToPersonne">
+    Détails de Sophie
+  </button>
 </template>
 
-<script>
+<script setup>
 import HelloWorld from '../components/HelloWorld.vue'
+import {reactive, ref, onMounted} from "vue";
+import {useRouter} from "vue-router";
 
-export default {
-    components: {
-        HelloWorld,
-    },
-    data() {
-        return {
-            villes: ['Lille', 'Lyon', 'Annecy'],
-            pays: null
-        }
-    },
-    methods: {
-        afficherPays(value) {
-            this.pays = value
-        },
-        goToPersonne() {
-            this.$router.push({name: 'personne-details', params: {id: 3}})
-        }
-    },
-    mounted() {
-        console.log(this.$refs.enfant.msg);
-    },
-}
+const router = useRouter();
+
+const villes = reactive(['Lille', 'Lyon', 'Annecy'])
+const pays = ref(null)
+const enfant = ref(null)
+
+const afficherPays = (value) => pays.value = value
+const goToPersonne = () => router.push({name: 'personne-details', params: {id: 3}})
+
+onMounted(() => {
+  console.log(enfant.value.msg);
+})
+
 </script>
 <style scoped>
 .logo {
-    height: 6em;
-    will-change: filter;
-    transition: filter 300ms;
+  height: 6em;
+  will-change: filter;
+  transition: filter 300ms;
 }
 </style>

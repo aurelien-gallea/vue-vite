@@ -1,14 +1,16 @@
 <template >
     <div>
-    <input type="text" :value="ville" @input="$emit('update:ville', $event.target.value)"/>
+    <input type="text" :value="ville" @input="envoyer"/>
     
     </div>
 </template>
-<script>
-export default {
-    props: ['ville'],
-    emits: ['update:ville']
-}
+<script setup>
+import {ref} from 'vue'
+
+const props = defineProps({ville: String})
+const ville = ref(props.ville)
+const emit = defineEmits(['update:ville'])
+const envoyer = () => emit('update:ville', ville.value = event.target.value)
 </script>
 <style lang="">
     
